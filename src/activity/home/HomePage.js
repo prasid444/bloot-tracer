@@ -4,10 +4,11 @@ import { deleteData,retrieveData } from '../../util/PreferenceManager';
 import { withNavigation } from 'react-navigation';
 import Firebase from '../../util/firebase';
 import UserListView from '../../ui/UserListView';
-import { Button } from 'react-native-paper';
+import { Button, Appbar, Banner } from 'react-native-paper';
 import { writeNewFirebaseData } from '../../util/FirebaseHandler';
 import UserDetailView from '../../ui/UserDetailView';
 import { UserListViewLoader } from '../../ui/LoadingScreens';
+import { colors } from '../../util/Constants';
 
 
 class HomePage extends React.Component{
@@ -19,14 +20,50 @@ class HomePage extends React.Component{
                 },
             }
         }
-
+        static navigationOptions = {
+            header:null
+        
+        }
         render(){
            
           
 
             return(
                 <View style={styles.container}>
+                    <Appbar.Header style={{backgroundColor:colors.HOME}}>
+                    <Appbar.Content
+                        title="Home"
+                    //   subtitle="Subtitle"
+                    />
+                    {/* <Appbar.Action icon="search"  /> */}
+                    {/* <Appbar.Action icon="more-vert"  /> */}
+                    </Appbar.Header>
                   <Text>Home Pagadsae</Text>
+
+                  <Banner
+                  visible={this.state.visible}
+                  actions={[
+                    {
+                      label: 'Fix it',
+                      onPress: () => this.setState({ visible: false }),
+                    },
+                    {
+                      label: 'Learn more',
+                      onPress: () => this.setState({ visible: false }),
+                    },
+                  ]}
+                  image={({ size }) =>
+                    <Image
+                        source={{ uri: 'https://avatars3.githubusercontent.com/u/17571969?s=400&v=4' }}
+                        style={{
+                        width: size,
+                        height: size,
+                        }}
+                    />
+                    }
+                  >
+                      Some text
+                  </Banner>
                   <UserListView
                   title="Prasidha Karki"
                   description="Sanepa,Lalitpur"
@@ -34,8 +71,9 @@ class HomePage extends React.Component{
                   />
                   <UserDetailView/>
                   <UserListViewLoader/>
-                <Text>asd</Text>
-                  <Text>adsaa</Text>
+                <Button 
+                onPress={()=>{this.setState({visible:true})}}>view Banner
+                </Button>
               
                 </View>
             )

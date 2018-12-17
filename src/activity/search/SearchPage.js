@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, StyleSheet } from 'react-native';
+import { View, Text, StatusBar, StyleSheet,SafeAreaView } from 'react-native';
 import { Searchbar, List } from 'react-native-paper';
 import UserListView from '../../ui/UserListView';
 import SearchedUserScreen from './SearchedUserScreen';
@@ -54,7 +54,8 @@ export default class SearchPage extends React.Component{
         const{isQuerying,recentUser,searchedUser,bloodFilter}=this.state;
         console.log(typeof this.state.bloodFilter)
         return (
-            <View style={styles.container}>
+            
+            <SafeAreaView style={styles.container}>
                 <Searchbar
                 autoFocus={false}
                 onChangeText={(e)=>this.handleQueryChange(e)}
@@ -77,7 +78,7 @@ export default class SearchPage extends React.Component{
                 />
                 }
              
-            </View>
+            </SafeAreaView>
         )
     }
 

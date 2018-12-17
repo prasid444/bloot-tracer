@@ -3,7 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    Button,
+   
     AsyncStorage,
     Image,
     Picker,
@@ -12,14 +12,34 @@ import {
 } from 'react-native';
 import Firebase from '../../util/firebase';
 import {storeData, retrieveData} from '../../util/PreferenceManager';
-import {TextInput, TouchableRipple} from 'react-native-paper';
+import { TextInput, TouchableRipple, Button } from 'react-native-paper';
 import {ScrollView} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-datepicker';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Dropdown} from 'react-native-material-dropdown';
+
+import { nullUser, GenderData, BGroupData } from '../../util/Constants';
+
 export default class SignupScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            signupData:{
+                user_name:"Prasidha Karki",
+                user_email:"prasidkarki95@gmail.com",
+                user_password:"password",
+                confirm_password:"password",
+                gender:"M",
+                address:"Sanepa",
+                location:{
+                    latitude:27.54,
+                    longitude:85.26
+                },
+                phone:9860167627,
+                b_group:"B+",
+
+            },
             cords: null,
             userimage: {
                 data: null
@@ -37,27 +57,40 @@ export default class SignupScreen extends React.Component {
     }
 
     render() {
+
         return (
             <ScrollView style={styles.container}>
                 <Text style={{
-                    fontSize: 27
+                    fontSize: 27,
+                    alignSelf:'center'
                 }}>
-                    SignUp</Text>
+                    SignUp Form</Text>
+                    
                 <View style={styles.form_container}>
                     <TouchableRipple
                         style={styles.profile_pic}
                         onPress={() => {
                         this.pickUserImage();
                     }}>
+                        <React.Fragment>
                         <Image
                             style={styles.profile_pic}
                             source={{
-                            uri: "data:image/jpeg;base64," + this.state.userimage.data
+                            uri: "data:image/jpeg;base64," + (this.state.userimage.data||nullUser)
                         }}/>
+                        {this.state.userimage.data?
+                        <Icon name="trash" 
+                        size={20}  
+                        style={{position:'absolute',right:2,bottom:2,color:'#9f0000'}}
+                        onPress={()=>this.dismissUserImage()}
+                        />
+                        :null
+                        }
+                        </React.Fragment>
                     </TouchableRipple>
                     <TextInput
                     mode='outlined'
-                    label="Full Name"
+                    label="Full Names"
                     placeholder="User Name"
                     />
                     <TextInput
@@ -71,28 +104,30 @@ export default class SignupScreen extends React.Component {
                     label="Password"
                     placeholder="password"
                     />
+                    
                     <TextInput
                     mode='outlined'
                     label="Confirm Password"
                     placeholder="password"
+                  
                     />
                     
                     <TextInput
                         mode='outlined'
-                        render={() =>< Picker selectedValue = {this.state.language}
-                    onValueChange = {
-                        (itemValue, itemIndex) => this.setState({language: itemValue})
-                    } > 
-                    <Picker.Item label="Javaa" value="java"/> 
-                    < Picker.Item label = "JavaScript" value = "js" /> 
-                    </Picker>}/>
-                    <TextInput
-                        mode='outlined'
-                        placeholder="FullName1"
-                        onChangeText={(text) => this.setState({email1: text, emailerror: ""})}
-                        value={this.state.email1}
-                        label="Namekma"
-                        onFocus={() => console.log("Hello i am focused")}/>
+                        
+                        render={()=>{return <Dropdown
+                            label="Gender"
+                            data={GenderData}
+                            value=""
+                            containerStyle={{
+                                marginLeft:10,
+                                borderBottomWidth: 0,
+                                
+                            }}
+                            />}
+                        }
+                        />
+                         
                     <TextInput 
                     mode='outlined' 
                     label="D.O.B"
@@ -102,6 +137,35 @@ export default class SignupScreen extends React.Component {
                     clearTextOnFocus
                     value={this.state.date}
                     />
+                    <TextInput
+                    mode='outlined'
+                    label="Address"
+                    />
+                    <View style={{flexDirection:'row',justifyContent:'space-between'}} >
+                        <Text>Latitude:27.88211</Text>
+                        <Text>Longitude:85.02222</Text>
+                    </View>
+                    <TextInput
+                    mode='outlined'
+                    label="Contact"
+                    placeholder="+977"
+                    />
+                    <TextInput
+                    mode='outlined'
+                    render={()=>{
+                        return <Dropdown
+                        label="Blood Group"
+                        data={BGroupData}
+                        value=""
+                        containerStyle={{
+                            marginLeft:10,
+                            borderBottomWidth: 0,
+                            
+                        }}
+                        />
+                    }}
+                    />
+                  {/* Datepicker modal for picking date */}
                     <DatePicker
                 style={{
                     height:0,
@@ -126,82 +190,49 @@ export default class SignupScreen extends React.Component {
                 }}
                 onDateChange={(date) => {this.setState({date: date})}}
                 />
-                    <TextInput
-                        mode='outlined'
-                        placeholder="FullName3"
-                        onChangeText={(text) => {
-                        this.setState({email3: text, emailerror: ""})
-                    }}
-                        value={this.state.email3}
-                        label="Namekm3"/>
-                    <TextInput
-                        mode='outlined'
-                        placeholder="FullName4"
-                        onChangeText={(text) => this.setState({email4: text, emailerror: ""})}
-                        value={this.state.email4}
-                        label="Namekm4"/>
-                    <View>
-                        <Text>Latitude:{JSON.stringify(this.state.latitude)}</Text>
-                        <Text>Longitude:{this.state.longitude}</Text>
-                        <Text
-                            style={{
-                            color: 'red'
-                        }}>{JSON.stringify(this.state.error)}</Text>
-
-                    </View>
+                    
 
                 </View>
 
-                <TextInput
-                    value={this.state.email}
-                    placeholder="Email"
-                    onChangeText={(v) => {
-                    console.log(v);
-                    this.setState({email: v})
-                }}/>
-                <Text style={{
-                    color: 'red'
-                }}>{this.state.emailerror}</Text>
-                <TextInput
-                    value={this.state.password}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    onChangeText={(v) => {
-                    console.log(v);
-                    this.setState({password: v})
-                }}/>
-                <Text style={{
-                    color: 'red'
-                }}>{this.state.passworderror}</Text>
+               
                 <Button
-                    title="Signup"
+                    style={styles.signupButton}
+                    mode='contained'
                     onPress={() => {
                     this.signInWithEmaiPassword()
-                }}/>
-                <Button
-                    title="Login"
-                    onPress={() => {
-                    console.log("Login pressed");
-                    this
-                        .props
-                        .navigation
-                        .navigate('Login')
-                }}/>
-                <Text>{this.state.errorMessage}</Text>
+                }}>Signup</Button>
+                <View style={styles.loginContainer}>
+
+                <Text>Haven't registered yet?</Text>
+                <Text
+                    style={{
+                    color: 'blue'
+                }}
+                    onPress={() => this.props.navigation.navigate('Login')}
+                    > Login</Text>
+                </View>
             </ScrollView>
         )
     }
     componentDidMount() {
         console.log("getting geolocation");
-        this.dismissUserImage();
+        // this.dismissUserImage();
 
-        // navigator.geolocation.getCurrentPosition(     (position)=>{
-        // console.log(position);       this.setState({
-        // latitude:position.coords.latitude,
-        // longitude:position.coords.longitude,           error:null       })
-        // },(error)=>{       console.log(error);       this.setState({
-        // error:error       })   },{       enableHighAccuracy: false,       timeout:
-        // 20000,       // maximumAge: 1000   })
+        navigator.geolocation.getCurrentPosition(     
+            (position)=>{
+        console.log(position);       
+        this.setState({
+        latitude:position.coords.latitude,
+        longitude:position.coords.longitude,           
+        error:null       })
+         },(error)=>{       
+             console.log(error);       
+            this.setState({
+         error:error       })   
+        },{       
+             enableHighAccuracy: false,       
+            timeout:20000,       
+            maximumAge: 1000   })
     }
 
     pickUserImage() {
@@ -221,11 +252,11 @@ export default class SignupScreen extends React.Component {
             })
     }
     dismissUserImage() {
-        var newuser = this.state.userimage;
-        newuser.data = "iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAa0lEQVR42u3PMREAAAgEIL9/WwtoBHcP" +
-                "GpCeeiEiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIi" +
-                "IiIiIiIiIiIiIiIiIiIiIiIiIiIiIpcFKjbCiZfrjTwAAAAASUVORK5CYII="
-        this.setState({userimage: newuser})
+        // var newuser = this.state.userimage;
+        // newuser.data = "iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAa0lEQVR42u3PMREAAAgEIL9/WwtoBHcP" +
+        //         "GpCeeiEiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIi" +
+        //         "IiIiIiIiIiIiIiIiIiIiIiIiIiIiIpcFKjbCiZfrjTwAAAAASUVORK5CYII="
+        this.setState({userimage: {}})
     }
     signInWithEmaiPassword() {
         this.setState({emailerror: null, passworderror: null})
@@ -284,9 +315,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#ada'
     },
     form_container: {
-        marginLeft: 40,
-        marginRight: 40,
+        marginLeft: 20,
+        marginRight: 20,
         marginTop: 10,
+        marginBottom:15,
         flexDirection: 'column',
         justifyContent: 'center'
     },
@@ -296,5 +328,15 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         marginBottom: 20,
         alignSelf: 'center'
+    },
+    loginContainer:{
+        marginTop: 10,
+        flexDirection: 'row',
+        alignSelf: 'center',
+        marginBottom:10
+    },
+    signupButton:{
+        marginLeft:20,
+        marginRight:20
     }
 })

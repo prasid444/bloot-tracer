@@ -1,10 +1,11 @@
 import React from 'react';
 import {View,Text,RefreshControl} from 'react-native';
-import { Button,Snackbar } from 'react-native-paper';
+import { Button,Snackbar, Appbar } from 'react-native-paper';
 import Firebase from '../../util/firebase';
 import { writeNewFirebaseData, readFirebaseData } from '../../util/FirebaseHandler';
 import { ScrollView } from 'react-native-gesture-handler';
 import UserListView from '../../ui/UserListView';
+import { colors } from '../../util/Constants';
 
 
 export default class ProfilePage extends React.Component{
@@ -19,6 +20,13 @@ export default class ProfilePage extends React.Component{
             snackVisible:false
         }
         this._onRefresh=this._onRefresh.bind(this);
+        console.ignoredYellowBox = [
+            'Setting a timer'
+            ];
+    }
+    static navigationOptions = {
+        header:null
+    
     }
     context=this;
 
@@ -47,6 +55,14 @@ export default class ProfilePage extends React.Component{
     
     render(){
         return (<View style={{flex:1}}>
+            <Appbar.Header dark style={{backgroundColor:colors.PROFILE}}>
+                    <Appbar.Content
+                        title="Profile"
+                    //   subtitle="Subtitle"
+                    />
+                    {/* <Appbar.Action icon="search"  /> */}
+                    {/* <Appbar.Action icon="more-vert"  /> */}
+                    </Appbar.Header>
             <ScrollView
             refreshControl={
                 <RefreshControl

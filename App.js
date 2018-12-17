@@ -13,6 +13,7 @@ import {retrieveData} from './src/util/PreferenceManager';
 import { createRootNavigator } from './src/navigation/AppNavigatior';
 import Firebase from './src/util/firebase';
 import MainLoading from './src/ui/MainLoading';
+import NoConnection from './src/ui/NoConnection';
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
     android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev men' +
@@ -37,11 +38,15 @@ export default class App extends Component {
                     <MainLoading/>            
                 </View>
         }
-        else{
+        else if(!this.state.isLoading){
             const Layout=createRootNavigator(this.state.isLoggedIn)
             console.log(this.state.isLoggedIn)
             return <Layout/>
         }
+        // else if(!(this.state.isLoading&&this.state.isLoggedIn)){
+        //     return <NoConnection reload={()=>this.reload()}/>
+        //     alert("Loggin failed")
+        // }
 //         return (
 //             <View style={styles.container}>
 
@@ -68,10 +73,20 @@ export default class App extends Component {
 
      
     }
+    reload(){
+        console.log("reload called")
+        console.log(this);
+        //return <App/>
+        this.checkUserStatus();
+    }
 
     checkUserStatus() {
         console.log("retriving data")
         var context=this;
+        context.setState({
+            isLoading:true,
+            isLoggedIn:false
+        })
         this.unsubscribeFirebase=Firebase.auth().onAuthStateChanged(function(user){
             if(user){
                 context.setState({
@@ -86,30 +101,7 @@ export default class App extends Component {
                  })
             }
         });
-        // retrieveData("user").then((user) => {
-        //     console.log(user)
-        //     if (user != undefined) {
-        //       console.log("not undefined");
-        //       context.setState({
-        //         isLoading:false,
-        //         isLoggedIn:true
-        //       })
-  
-        //   } else {
-        //     context.setState({
-        //        isLoading:false,
-        //       isLoggedIn:false
-        //     })
-        //   }
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        //     context.setState({
-        //       isLoading:false,
-        //       isLoggedIn:false
-        //     })
-        // })
-        
+      
     }
 
     componentWillMount(){

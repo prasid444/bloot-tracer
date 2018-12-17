@@ -1,6 +1,6 @@
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator ,createAppContainer,createSwitchNavigator} from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createStackNavigator ,createAppContainer,createSwitchNavigator,createMaterialTopTabNavigator} from 'react-navigation';
 import LoginScreen from '../activity/auth/LoginScreen';
 import SignupScreen from '../activity/auth/SingupScreen';
 import ForgetPasswordScreen from '../activity/auth/ForgetPasswordScreen';
@@ -11,6 +11,8 @@ import PostsPage from "../activity/posts/PostsPage";
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import React from 'react';
 import EditProfileScreen from '../activity/profile/EditProfileScreen';
+import  LottieView  from 'lottie-react-native';
+import {colors} from '../util/Constants';
 export const LoggedOut=createStackNavigator(
   {
     Login:{
@@ -29,42 +31,102 @@ export const LoggedOut=createStackNavigator(
 }
 )
 
-const colors={
-  HOME:"#e91e63",
-  SEARCH:"#8bc34a",
-  POSTS:"#9c27b0",
-  PROFILE:"#00bcd4"
-}
 
 const Home=createStackNavigator({
   HomePage
 })
 Home.navigationOptions={
-  tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='ios-home' size={ horizontal?20:25 } color={tintColor} />},
-  tabBarColor:colors.HOME
+  tabBarIcon:({tintColor,horizontal,focused})=>{
+    if(focused){
+      return <LottieView
+      source={require('../../assets/home.json')}
+      style={{height:30,width:30}}
+      loop={false}
+      speed={6}
+      ref={animation=>{
+        this.animationhome=animation;
+      }}
+      // duration={4000}
+      autoPlay={true}
+      />
+    }
+    else{
+    return <Ionicons name='home' size={ horizontal?20:25 } color={tintColor} />
+    }
+  },
+  tabBarColor:colors.HOME,
+  tabBarOnPress:({navigation,defaultHandler})=>{
+    this.animationhome.play();
+    defaultHandler()
+
+  // console.warn("Home Pressed")
+ 
+}
 };
+
+
+
 const Profile=createStackNavigator({
   ProfilePage,EditProfileScreen
 })
 Profile.navigationOptions={
-  tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='ios-person' size={ horizontal?20:25 } color={tintColor} />},
+  tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='account' size={ horizontal?20:25 } color={tintColor} />},
   tabBarColor:colors.PROFILE,
+  tabBarOnPress:({navigation,defaultHandler})=>{
+    defaultHandler();
+    //  this.animation.play();
+    console.log("Profile Pressed")
+   
+  }
+  
 
 };
 const Search=createStackNavigator({
   SearchPage
 })
 Search.navigationOptions={
-  tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='ios-search' size={ horizontal?20:25 } color={tintColor} />},
+  
+  tabBarIcon:({tintColor,horizontal,focused})=>{
+    console.log(focused);
+    if(focused){
+      return <LottieView
+      source={require('../../assets/checkanimate.json')}
+      style={{height:30,width:30,}}
+      loop={false}
+      speed={2}
+      ref={animation=>{
+        this.animation=animation;
+      }}
+      // duration={4000}
+      autoPlay={true}
+      />
+
+    }
+    else{
+     
+      return <Ionicons name='magnify' size={ horizontal?20:25 } color={tintColor} />
+    }
+   },
+    
   tabBarColor:colors.SEARCH,
+  tabBarOnPress:({navigation,defaultHandler})=>{
+      this.animation.play();
+      defaultHandler()
+ 
+    console.log("Search Pressed")
+   
+  }
   
 };
 const Posts=createStackNavigator({
   PostsPage
 })
 Posts.navigationOptions={
-tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='ios-copy' size={ horizontal?20:25 } color={tintColor} />},
-  tabBarColor:colors.POSTS
+tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='content-copy' size={ horizontal?20:25 } color={tintColor} />},
+  tabBarColor:colors.POSTS,
+  tabBarOnPress:({navigation,defaultHandler})=>{
+    defaultHandler();
+    console.log("Pressed")}
 };
 
 
@@ -88,8 +150,9 @@ export const LoggedIn=createMaterialBottomTabNavigator({
  
 },{
   initialRouteName:'Home',
+  
   activeColor: '#ffffff',
-  inactiveTintColor:'rgba(255,255,255,0.5)',
+  inactiveTintColor:'rgba(255,255,255,0.1)',
   barStyle: { backgroundColor: '#694fad' },
   // headerMode:'none'
   // defaultNavigationOptions:({navigation})=>({
