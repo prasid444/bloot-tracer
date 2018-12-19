@@ -74,6 +74,8 @@ class HomePage extends React.Component{
                 <Button 
                 onPress={()=>{this.setState({visible:true})}}>view Banner
                 </Button>
+                <Text>hahan</Text>
+                
               
                 </View>
             )

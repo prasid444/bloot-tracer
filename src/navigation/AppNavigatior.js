@@ -75,6 +75,7 @@ Profile.navigationOptions={
   tabBarOnPress:({navigation,defaultHandler})=>{
     defaultHandler();
     //  this.animation.play();
+    console.log(this);
     console.log("Profile Pressed")
    
   }
@@ -87,7 +88,7 @@ const Search=createStackNavigator({
 Search.navigationOptions={
   
   tabBarIcon:({tintColor,horizontal,focused})=>{
-    console.log(focused);
+   
     if(focused){
       return <LottieView
       source={require('../../assets/checkanimate.json')}
@@ -122,11 +123,21 @@ const Posts=createStackNavigator({
   PostsPage
 })
 Posts.navigationOptions={
+  
 tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='content-copy' size={ horizontal?20:25 } color={tintColor} />},
   tabBarColor:colors.POSTS,
   tabBarOnPress:({navigation,defaultHandler})=>{
     defaultHandler();
-    console.log("Pressed")}
+    // navigation.state.params.onFocus()
+    // console.log(navigation.state.routes[0]);
+      try{
+        navigation.state.routes[0].params.scrollToTop();
+      }catch(e){
+        console.log(e)
+      }
+    
+  }
+
 };
 
 

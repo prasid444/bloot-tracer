@@ -59,3 +59,95 @@ export const colors={
 export const nullUser="iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAa0lEQVR42u3PMREAAAgEIL9/WwtoBHcP" +
 "GpCeeiEiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIi" +
 "IiIiIiIiIiIiIiIiIiIiIiIiIiIiIpcFKjbCiZfrjTwAAAAASUVORK5CYII=";
+
+export const postItemHeight=184;
+
+export const postData=[
+    {
+        name:"Prasidha Kakri",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"1 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:true
+    },
+    {
+        name:"Prasidha Kakri2",
+        distance:"1 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"1 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+    },
+    {
+        name:"Prasidha Kakri3",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"4 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:false
+    },
+    {
+        name:"Prasidha Kakri3",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"4 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:false
+    },
+    {
+        name:"Prasidha Kakri3",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"4 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:false
+    },
+    {
+        name:"Prasidha Kakri3",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"4 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:false
+    },
+    {
+        name:"Prasidha Kakri3",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"4 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:false
+    },
+    {
+        name:"Prasidha Kakri3",
+        distance:"2 km",
+        address:"Some Address",
+        date:"12-1-2018",
+        bgroup:"B+",
+        bamount:"4 pint",
+        comment:"Some comment here",
+        number:"9870171729",
+        emergency:false
+    }
+]
