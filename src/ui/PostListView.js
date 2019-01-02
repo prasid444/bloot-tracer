@@ -19,7 +19,7 @@ export default class PostListView extends React.Component{
                 <View style={styles.child}>
                     <Title >Patient Name: </Title>
                     <Title>{this.props.name||"n/a"}{" "}</Title>
-                    <Chip  mode='outlined'>{this.props.distance||"n/a"}</Chip>
+                    {this.props.distance&&<Chip  mode='outlined'>{this.props.distance||"n/a"}</Chip>}
                 </View>
                 <View style={[styles.child,styles.child2]}>
                 <View style={styles.child4}>

@@ -13,6 +13,7 @@ import React from 'react';
 import EditProfileScreen from '../activity/profile/EditProfileScreen';
 import  LottieView  from 'lottie-react-native';
 import {colors} from '../util/Constants';
+import AddPostScreen from '../activity/posts/AddPostScreen';
 export const LoggedOut=createStackNavigator(
   {
     Login:{
@@ -120,7 +121,7 @@ Search.navigationOptions={
   
 };
 const Posts=createStackNavigator({
-  PostsPage
+  PostsPage,AddPostScreen
 })
 Posts.navigationOptions={
   

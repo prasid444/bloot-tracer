@@ -21,7 +21,10 @@ export default class PostsPage extends React.Component{
         this._scrollToTop=this._scrollToTop.bind(this);
         this._renderFlatListFooter=this._renderFlatListFooter.bind(this);
         this.loadMoreData=this.loadMoreData.bind(this);
+        this.componentBlurred=this.componentBlurred.bind(this);
+        this.componentFocused=this.componentFocused.bind(this);
         this.counter=0;
+        this.isAlreadyFocused=false;
        
     }
     
@@ -76,8 +79,7 @@ export default class PostsPage extends React.Component{
     large
     icon="add"
     onPress={() => {
-        console.log('Pressed');
-        this._scrollToTop();
+        this.props.navigation.navigate("AddPostScreen")
 
     }}
   />
@@ -121,8 +123,15 @@ export default class PostsPage extends React.Component{
         // // console.log(this.refs.ss._children[0]._children[0].viewConfig.Commands.scrollTo(0))
         // // this.refs.someref.scrollToOffset({x: 0, y: 0, animated: true})
 
-        // console.log(this.state.data)
-       this.flatlist1.scrollToIndex({animated: true, index: 0});
+        if(this.isAlreadyFocused){
+            // console.log("Already focused")
+            this.flatlist1.scrollToIndex({animated: true, index: 0});
+
+        }else{
+            // console.log("Not already focused")
+            this.isAlreadyFocused=true;
+
+        }
        
     }
 
@@ -161,10 +170,12 @@ export default class PostsPage extends React.Component{
     componentDidMount(){
       
         this.props.navigation.setParams({scrollToTop: this._scrollToTop});
-        this.componentFocused();
+        // this.componentFocused();
         this._sub=this.props.navigation.addListener(
             'didFocus',this.componentFocused);
-       
+        this._sub1=this.props.navigation.addListener(
+            'didBlur',this.componentBlurred);
+           
         this.setState({
             data:postData
         })
@@ -175,14 +186,21 @@ export default class PostsPage extends React.Component{
     componentWillUnmount(){
         try{
             this._sub.remove();
+            this._sub1.remove();
+
           
         }catch(e){
             console.log(e);
         }
     }
+    componentBlurred(){
+        // console.log("post page blurred",this.isAlreadyFocused)
+
+        this.isAlreadyFocused=false;
+    }
 
     componentFocused(){
-        console.log("post page focused")
+        // console.log("post page focused",this.isAlreadyFocused)
     }
    
 

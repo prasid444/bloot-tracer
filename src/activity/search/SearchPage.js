@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StatusBar, StyleSheet,SafeAreaView } from 'react-native';
+import { View, Text, StatusBar, StyleSheet,SafeAreaView ,Keyboard} from 'react-native';
 import { Searchbar, List } from 'react-native-paper';
 import UserListView from '../../ui/UserListView';
 import SearchedUserScreen from './SearchedUserScreen';
@@ -29,11 +29,12 @@ export default class SearchPage extends React.Component{
       
     handleQueryChange(query){
         if(query===""){
-            this.setState({isQuerying:false})
+            this.setState({isQuerying:false,queryText:""})
 
         }
         else{
-            this.setState({isQuerying:true})
+            this.getQueriedUser(query)
+            this.setState({isQuerying:true,queryText:query})
         }
     }
     handleBloodGroupChange(group){
@@ -53,18 +54,30 @@ export default class SearchPage extends React.Component{
     render(){
         const{isQuerying,recentUser,searchedUser,bloodFilter}=this.state;
         console.log(typeof this.state.bloodFilter)
+        var extdata=this.state.isSearchFocused?{
+            icon:"arrow-back",
+            onIconPress:()=>{
+                this.setState({isSearchFocused:false,isQuerying:false,queryText:""});
+                Keyboard.dismiss();
+                
+            }
+        }:{
+            
+        }
         return (
             
             <SafeAreaView style={styles.container}>
                 <Searchbar
                 autoFocus={false}
+                
                 onChangeText={(e)=>this.handleQueryChange(e)}
-                onIconPress={()=>{
-                    console.log("Search icon pressed");
-                }}
+               
                 onFocus={()=>{
-                    console.log("Focused in Search bar");
+                   this.setState({isSearchFocused:true})
+
                 }}
+                {...extdata}
+                value={this.state.queryText}
                 />
                 {isQuerying?
                 <SearchedUserScreen
@@ -101,6 +114,7 @@ export default class SearchPage extends React.Component{
     }
     getQueriedUser(query){
         var context=this;
+        console.log("getting for",query)
     }
     componentDidMount(){
         this.getRecentUser()

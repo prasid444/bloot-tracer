@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet,ScrollView } from 'react-native';
 import { deleteData,retrieveData } from '../../util/PreferenceManager';
 import { withNavigation } from 'react-navigation';
 import Firebase from '../../util/firebase';
@@ -9,7 +9,9 @@ import { writeNewFirebaseData } from '../../util/FirebaseHandler';
 import UserDetailView from '../../ui/UserDetailView';
 import { UserListViewLoader } from '../../ui/LoadingScreens';
 import { colors } from '../../util/Constants';
-
+import * as ProgressLoader from 'react-native-progress';
+import CustomInput from '../../lib/form/CustomInput';
+import CustomForm from '../../lib/form/CustomForm';
 
 class HomePage extends React.Component{
         constructor(props){
@@ -18,6 +20,7 @@ class HomePage extends React.Component{
                 user:{},
                 newdata:{
                 },
+                progress:0,
             }
         }
         static navigationOptions = {
@@ -38,45 +41,9 @@ class HomePage extends React.Component{
                     {/* <Appbar.Action icon="search"  /> */}
                     {/* <Appbar.Action icon="more-vert"  /> */}
                     </Appbar.Header>
-                  <Text>Home Pagadsae</Text>
+                    <ScrollView>
 
-                  <Banner
-                  visible={this.state.visible}
-                  actions={[
-                    {
-                      label: 'Fix it',
-                      onPress: () => this.setState({ visible: false }),
-                    },
-                    {
-                      label: 'Learn more',
-                      onPress: () => this.setState({ visible: false }),
-                    },
-                  ]}
-                  image={({ size }) =>
-                    <Image
-                        source={{ uri: 'https://avatars3.githubusercontent.com/u/17571969?s=400&v=4' }}
-                        style={{
-                        width: size,
-                        height: size,
-                        }}
-                    />
-                    }
-                  >
-                      Some text
-                  </Banner>
-                  <UserListView
-                  title="Prasidha Karki"
-                  description="Sanepa,Lalitpur"
-                  imageUrl="www.facevooks.ads"
-                  />
-                  <UserDetailView/>
-                  <UserListViewLoader/>
-                <Button 
-                onPress={()=>{this.setState({visible:true})}}>view Banner
-                </Button>
-                <Text>hahan</Text>
-                
-              
+                </ScrollView>
                 </View>
             )
         }

@@ -13,27 +13,42 @@ export const BGroup={
 export const BGroupData=[
     {
         value:'A+',
+        key:"a_positive"
     },
     {
-        value:'A-'
+        value:'A-',
+        key:"a_negative"
+
     },
     {
-        value:'B+'
+        value:'B+',
+        key:"b_positive"
+
     },
     {
-        value:'B-'
+        value:'B-',
+        key:"b_negative"
+
     },
     {
-        value:'AB+'
+        value:'AB+',
+        key:"ab_positive"
+
     },
     {
-        value:'AB-'
+        value:'AB-',
+        key:"ab_negative"
+
     },
     {
-        value:'O+'
+        value:'O+',
+        key:"o_positive"
+
     },
     {
-        value:'O-'
+        value:'O-',
+        key:"o_negative"
+
     },
 ];
 export const GenderData=[
@@ -65,7 +80,6 @@ export const postItemHeight=184;
 export const postData=[
     {
         name:"Prasidha Kakri",
-        distance:"2 km",
         address:"Some Address",
         date:"12-1-2018",
         bgroup:"B+",
@@ -151,3 +165,191 @@ export const postData=[
         emergency:false
     }
 ]
+
+export const postFormData={
+    name:{
+        displayName:"Patient Name",
+        type:"InputText",
+        validations:{
+            required:true,
+            type:"String",
+            max_length:30
+        },
+        errorMessages:{
+            required:"Patient name is required",
+            type:"Name must be string",
+            max_length:"Name must not be more than 30 characters"
+        }
+
+    }, 
+    address:{
+        displayName:"Address",
+        type:"InputLocation",
+        validations:{
+            required:true,
+        },
+        errorMessages:{
+            required:"Address is required",
+        }
+
+    },
+    date:{
+        displayName:"Required before(YYYY-MM-DD)",
+        type:"InputDate",
+        validations:{
+            required:true,
+            type:"date"
+        },
+        errorMessages:{
+            required:"Date is required",
+            type:"Error date format"
+        }
+
+    },
+    b_group:{
+        displayName:"Blood Group",
+        type:"Options",
+        validations:{
+            required:true
+        },
+        errorMessages:{
+            required:"Must select one blood group"
+        },
+        options:BGroupData,
+        optionText:"Select Blood Group"
+    },
+    b_amount:{
+        displayName:"Blood Amount",
+        type:"Options",
+        validations:{
+            required:true
+        },
+        errorMessages:{
+            required:"Amount must be required"
+        },
+        options:[
+            {
+                value:"1 Pint",
+                key:1
+            },
+            {
+                value:"2 Pint",
+                key:2
+            },
+            {
+                value:"3 Pint",
+                key:3
+            },
+            {
+                value:"4 Pint",
+                key:4
+            }
+        ],
+        optionText:"Select Blood Amount"
+
+    },
+    // user_name:{
+    //     displayName:"User Nassme",
+    //     isSecure:false,
+    //     type:"InputText",
+    //     validations:{
+    //         required:true,
+    //         type:"String",
+    //         min_length:5
+    //     },
+    //     errorMessages:{
+    //         required:"Data cannot be empty",
+    //         type:"Input value must be string",
+    //         min_length:"Name must be greater than 5 characters"
+    //     },
+      
+    // },
+    // remember:{
+    //     displayName:"Checkbox",
+    //     checkLabel:"Agree to terms and conditions",
+    //     type:"CheckBox",
+    //     validations:{
+    //         defaultValue:true
+    //     },
+    //     errorMessages:{
+    //         defaultValue:"You must agree to terms"
+    //     },
+      
+    // },
+    // password:{
+    //     displayName:"Password",
+    //     isSecure:true,
+    //     type:"InputText",
+    //     validations:{
+    //         required:true,
+    //         type:"String",
+    //         min_length:8
+    //     },
+    //     errorMessages:{
+    //         required:"Requuired field",
+    //         type:"Input value must be string",
+    //         min_length:"Password must be greater than 5 characters"
+    //     },
+     
+    // },
+    gender:{
+        displayName:"Gender",
+        type:"Options",
+        validations:{
+            required:true
+        },
+        errorMessages:{
+            required:"Must select one gender"
+        },
+        options:[
+            {
+                value:"Male",
+                key:"male"
+            },
+            {
+                value:"Female",
+                key:"female"
+            },
+            {
+                value:"Other",
+                key:"other"
+            }
+        ],
+        optionText:"Select Gender"
+
+    },
+    comment:{
+        displayName:"Comment",
+        type:"InputText",
+        validations:{
+            max_length:100,
+            type:"String"
+        },
+        errorMessages:{
+            max_length:"Comment must be less than 100 characters",
+            type:"Type must be string"
+        },
+        multiline:3
+    },
+      emergency:{
+        displayName:"Emergency",
+        checkLabel:"Emergency Case",
+        type:"CheckBox",
+        validations:{
+        },
+        errorMessages:{
+        },
+      
+    },
+    user_image:{
+        displayName:"User Image",
+        type:"Image",
+        validations:{
+            required:true
+        },
+        errorMessages:{
+            required:"Must contain Image"
+        }
+    }
+
+};
