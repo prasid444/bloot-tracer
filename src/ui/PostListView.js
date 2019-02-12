@@ -79,9 +79,6 @@ const styles=StyleSheet.create({
         backgroundColor:'white',
         borderRadius: 5,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 20 },
-        shadowOpacity: 1,
-        shadowRadius: 8,
         elevation: 4,
     },
     child:{

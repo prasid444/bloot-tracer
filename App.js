@@ -43,35 +43,7 @@ export default class App extends Component {
             console.log(this.state.isLoggedIn)
             return <Layout/>
         }
-        // else if(!(this.state.isLoading&&this.state.isLoggedIn)){
-        //     return <NoConnection reload={()=>this.reload()}/>
-        //     alert("Loggin failed")
-        // }
-//         return (
-//             <View style={styles.container}>
-
-//                 {this.state.isLoading
-//                     ? <View>
-//                     <Text>ISLogged: {String(this.state.isLoggedIn)}</Text>
-//                     </View>
-//                     : 
-//                     const Layout=createRootNavigator(this.state.isLoggedIn)
-
-//                     return <Layout/>
-
-//                     <AppNavigator/>
-// }
-                {/* {
-          console.log( this.checkUserStatus())
-        }{
-        this.checkUserStatus()?
-         <HomePage/>
-         :
-         <AppNavigator/>
-        }
-        */}
-
-     
+       
     }
     reload(){
         console.log("reload called")
@@ -88,7 +60,9 @@ export default class App extends Component {
             isLoggedIn:false
         })
         this.unsubscribeFirebase=Firebase.auth().onAuthStateChanged(function(user){
+
             if(user){
+                console.log("USER ",user)
                 context.setState({
                     isLoading:false,
                     isLoggedIn:true

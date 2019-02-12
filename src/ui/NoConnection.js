@@ -9,6 +9,7 @@ export default class NoConnection extends React.Component{
                 <Text>
                     No Internet Connection
                 </Text>
+                
                 <Button
                 mode='contained'
                 onPress={()=>this.props.reload()}

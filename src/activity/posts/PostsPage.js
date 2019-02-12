@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, RefreshControl, ActivityIndicator,FlatList } from 'react-native';
+import { View, Text, StyleSheet, RefreshControl, ActivityIndicator, FlatList, SafeAreaView } from 'react-native';
 import PostListView from '../../ui/PostListView';
 import Communications from 'react-native-communications';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { FAB, Searchbar } from 'react-native-paper';
 import { postItemHeight, postData } from '../../util/Constants';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default class PostsPage extends React.Component{
     constructor(props){
@@ -46,7 +47,7 @@ export default class PostsPage extends React.Component{
     render(){
         return (
             
-            <View style={{flex:1}}>
+            <SafeAreaView style={{flex:1}}>
             {/* <Searchbar></Searchbar> */}
             <FlatList
             data={this.state.data}
@@ -83,7 +84,7 @@ export default class PostsPage extends React.Component{
 
     }}
   />
-            </View>
+            </SafeAreaView>
         )
     }
     _renderFlatListFooter(){
@@ -92,7 +93,7 @@ export default class PostsPage extends React.Component{
             return <ActivityIndicator/>
         }
         if(this.state.failedNewData){
-            return <Text>Failed to Load new data</Text>
+            return <Text style={{textAlign:'center'}}><Icon name="exclamation-circle" />{"  "}Data loading failed</Text>
         }
         return null
     }

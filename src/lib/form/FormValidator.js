@@ -2,7 +2,8 @@ export function FormValidator (validators,data){
     // console.log("validator called");
     // console.log(validators);
     // console.log("DATA",data);
-    console.log("NOT DATA",!data)
+    console.log("NOT DATA",data.uri)
+    
     if(!(validators['required']===true) && (!data))
         {
             return [];
@@ -14,7 +15,8 @@ export function FormValidator (validators,data){
     for(let validator in validators){
         switch(validator){
             case 'required':
-            if((validators[validator]===true)&&(data.length===0 || data.uri==undefined))
+            console.log(4&&false)
+            if((validators[validator]===true)&&((data.length===0) || (typeof data==='object' && data.uri==undefined)))
             error=[...error,validator];
             break;
             case 'type':        

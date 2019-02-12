@@ -14,6 +14,7 @@ import EditProfileScreen from '../activity/profile/EditProfileScreen';
 import  LottieView  from 'lottie-react-native';
 import {colors} from '../util/Constants';
 import AddPostScreen from '../activity/posts/AddPostScreen';
+import ChangePassword from '../activity/profile/ChangePassword';
 export const LoggedOut=createStackNavigator(
   {
     Login:{
@@ -68,7 +69,7 @@ Home.navigationOptions={
 
 
 const Profile=createStackNavigator({
-  ProfilePage,EditProfileScreen
+  ProfilePage,EditProfileScreen,ChangePassword
 })
 Profile.navigationOptions={
   tabBarIcon:({tintColor,horizontal})=>{return <Ionicons name='account' size={ horizontal?20:25 } color={tintColor} />},

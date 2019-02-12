@@ -37,7 +37,7 @@ export default class CustomInput extends React.Component {
                         return <View>
                         <Picker 
                         prompt={this.props.displayName}
-                        
+                        mode="dropdown"
                         selectedValue={this.props.value}
                         onValueChange={(itemValue, itemIndex) => {
                             this.props.onChangeValue(this.props.keyName,itemValue);
@@ -107,7 +107,7 @@ export default class CustomInput extends React.Component {
                                     width:100,
                                     borderRadius:50,
                                 }}
-                                source={{uri:this.props.value.uri||".."}}
+                                source={{uri:this.props.value.uri}}
                             />
                             {!this.props.value.uri&&
                             <Icon name="cloud-upload-alt" size={30} style={{

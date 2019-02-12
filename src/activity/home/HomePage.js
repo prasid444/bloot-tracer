@@ -12,6 +12,7 @@ import { colors } from '../../util/Constants';
 import * as ProgressLoader from 'react-native-progress';
 import CustomInput from '../../lib/form/CustomInput';
 import CustomForm from '../../lib/form/CustomForm';
+import NoConnection from '../../ui/NoConnection';
 
 class HomePage extends React.Component{
         constructor(props){
@@ -41,8 +42,9 @@ class HomePage extends React.Component{
                     {/* <Appbar.Action icon="search"  /> */}
                     {/* <Appbar.Action icon="more-vert"  /> */}
                     </Appbar.Header>
-                    <ScrollView>
 
+                    <ScrollView>
+                    <NoConnection/>
                 </ScrollView>
                 </View>
             )

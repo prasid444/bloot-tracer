@@ -65,10 +65,10 @@ export const GenderData=[
 ];
 export const colors={
     HOME:"#e91e63",
-    // SEARCH:"#8bc34a",
+    SEARCH:"#8bc34a",
     POSTS:"#9c27b0",
     PROFILE:"#00bcd4",
-    SEARCH:"#e91e63",
+    //SEARCH:"#e91e63",
   }
   
 export const nullUser="iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAQAAADa613fAAAAa0lEQVR42u3PMREAAAgEIL9/WwtoBHcP" +
@@ -336,8 +336,10 @@ export const postFormData={
         checkLabel:"Emergency Case",
         type:"CheckBox",
         validations:{
+            // defaultValue:true
         },
         errorMessages:{
+            // defaultValue:"Set to true"
         },
       
     },
